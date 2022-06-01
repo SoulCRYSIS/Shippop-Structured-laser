@@ -15,18 +15,16 @@ def side_branch(x, factor):
 
 def hed():
     # Input
-    img_input = Input(shape=(480,480,3), name='input')
+    img_input = Input(shape=(3280,2464,3), name='input')
 
     # Block 1
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1')(img_input)
     x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2')(x)
-    b1= side_branch(x, 1) # 480 480 1
     x = MaxPooling2D((2, 2), strides=(2, 2), padding='same', name='block1_pool')(x) # 240 240 64
 
     # Block 2
     x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv1')(x)
     x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv2')(x)
-    b2= side_branch(x, 2) # 480 480 1
     x = MaxPooling2D((2, 2), strides=(2, 2), padding='same', name='block2_pool')(x) # 120 120 128
 
     # Block 3
@@ -50,12 +48,10 @@ def hed():
     b5= side_branch(x, 16) # 480 480 1
 
     # fuse
-    fuse = Concatenate(axis=-1)([b1, b2, b3, b4, b5])
+    fuse = Concatenate(axis=-1)([b3, b4, b5])
     fuse = Conv2D(1, (1,1), padding='same', use_bias=False, activation=None)(fuse) # 480 480 1
 
     # outputs
-    o1    = Activation('sigmoid', name='o1')(b1)
-    o2    = Activation('sigmoid', name='o2')(b2)
     o3    = Activation('sigmoid', name='o3')(b3)
     o4    = Activation('sigmoid', name='o4')(b4)
     o5    = Activation('sigmoid', name='o5')(b5)
@@ -63,7 +59,7 @@ def hed():
 
 
     # model
-    model = Model(inputs=[img_input], outputs=[o1, o2, o3, o4, o5, ofuse])
+    model = Model(inputs=[img_input], outputs=[o3, o4, o5, ofuse])
     filepath = '/home/congliu/.keras/models/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5'
     load_weights_from_hdf5_group_by_name(model, filepath)
 
