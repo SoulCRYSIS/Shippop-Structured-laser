@@ -2,6 +2,8 @@ import os
 import numpy as np
 from PIL import Image
 
+from constant import INPUT_IMAGE_HEIGHT, INPUT_IMAGE_WIDTH
+
 def read_file_list(filelist):
 
 	pfile = open(filelist)
@@ -24,14 +26,14 @@ class DataParser():
 
 	def __init__(self, batch_size_train):
 
-		self.train_file = os.path.join('/home/congliu/Desktop/HED-BSDS/', 'train_pair.lst')
-		self.train_data_dir = '/home/congliu/Desktop/HED-BSDS/'
+		self.train_file = os.path.join('./HED-BSDS/', 'train_pair.lst')
+		self.train_data_dir = './HED-BSDS/'
 		self.training_pairs = read_file_list(self.train_file)
 		self.samples = split_pair_names(self.training_pairs, self.train_data_dir)
 
 		self.n_samples = len(self.training_pairs)
 		self.all_ids = range(self.n_samples)
-		np.random.shuffle(self.all_ids)
+		np.random.shuffle([*self.all_ids])
 
 		train_split = 0.8
 		self.training_ids = self.all_ids[:int(train_split * len(self.training_pairs))]
@@ -44,8 +46,8 @@ class DataParser():
 		assert len(self.validation_ids) % (batch_size_train*2) == 0
 		self.validation_steps = len(self.validation_ids)/(batch_size_train*2)
 
-		self.image_width = 480
-		self.image_height = 480
+		self.image_width = INPUT_IMAGE_WIDTH
+		self.image_height = INPUT_IMAGE_HEIGHT
 		self.target_regression = True
 
 	def get_training_batch(self):
@@ -128,6 +130,5 @@ class DataParser():
 		edgemaps = np.asarray(edgemaps)
 
 		return images, edgemaps, filenames
-
 
 
