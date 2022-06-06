@@ -1,6 +1,6 @@
 from __future__ import print_function
 import os
-from constant import MODEL_NAME
+from constant import EPOCH_SIZE, MODEL_NAME
 from src.utils.HED_data_parser import DataParser
 from src.networks.hed import hed
 from keras.utils import plot_model
@@ -54,7 +54,7 @@ if __name__ == "__main__":
                         generate_minibatches(dataParser,),
                         # max_q_size=40, workers=1,
                         steps_per_epoch=dataParser.steps_per_epoch,  #batch size
-                        epochs=2048*2,
+                        epochs=EPOCH_SIZE,
                         validation_data=generate_minibatches(dataParser, train=False),
                         validation_steps=dataParser.validation_steps,
                         callbacks=[checkpointer, csv_logger, tensorboard])

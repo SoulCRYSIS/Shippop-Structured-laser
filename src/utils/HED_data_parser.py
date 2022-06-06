@@ -2,7 +2,7 @@ import os
 import numpy as np
 from PIL import Image
 
-from constant import INPUT_IMAGE_HEIGHT, INPUT_IMAGE_WIDTH
+from constant import DATA_FOLDER, INPUT_IMAGE_HEIGHT, INPUT_IMAGE_WIDTH
 
 def read_file_list(filelist):
 
@@ -26,8 +26,8 @@ class DataParser():
 
 	def __init__(self, batch_size_train):
 
-		self.train_file = os.path.join('./HED-BSDS/', 'train_pair.lst')
-		self.train_data_dir = './HED-BSDS/'
+		self.train_file = os.path.join(DATA_FOLDER, 'train_pair.lst')
+		self.train_data_dir = DATA_FOLDER
 		self.training_pairs = read_file_list(self.train_file)
 		self.samples = split_pair_names(self.training_pairs, self.train_data_dir)
 

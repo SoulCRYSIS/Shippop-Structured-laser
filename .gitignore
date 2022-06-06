@@ -130,5 +130,4 @@ dmypy.json
 
 # Dataset
 HED-BSDS
-checkpoints
-models
+checkpoints/HEDSeg/
