@@ -10,7 +10,7 @@ import glob
 from PIL import Image
 import cv2
 
-test = glob.glob("images/*")
+test = glob.glob("input/*")
 
 if __name__ == "__main__":
     # environment
