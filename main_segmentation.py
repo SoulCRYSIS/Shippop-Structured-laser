@@ -1,6 +1,6 @@
 from __future__ import print_function
 import os
-from constant import EPOCH_SIZE, MODEL_NAME
+from constant import BATCH_SIZE, EPOCH_SIZE, MODEL_NAME
 from src.utils.HED_data_parser import DataParser
 from src.networks.hed import hed
 from keras.utils import plot_model
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     csv_fn        = os.path.join(model_dir, 'train_log.csv')
     checkpoint_fn = os.path.join(model_dir, 'checkpoint.{epoch:02d}-{val_loss:.2f}.hdf5')
 
-    batch_size_train = 10
+    batch_size_train = BATCH_SIZE
 
     # environment
     K.set_image_data_format('channels_last')
