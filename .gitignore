@@ -130,7 +130,6 @@ dmypy.json
 
 # Dataset
 HED-BSDS
-IHED-DATA
 images
 *.hdf5
 *.v2
