@@ -21,7 +21,7 @@ def generate_minibatches(dataParser, train=True):
         yield(ims, [ems, ems, ems, ems])
 
 ######
-if __name__ == "__main__":
+def trainModel():
     # params
     model_name = MODEL_NAME
     model_dir     = os.path.join('checkpoints', model_name)
@@ -46,9 +46,9 @@ if __name__ == "__main__":
     # training
     # call backs
     checkpointer = callbacks.ModelCheckpoint(filepath=checkpoint_fn, verbose=1, save_best_only=True)
-    csv_logger  = callbacks.CSVLogger(csv_fn, append=True, separator=';')
-    tensorboard = callbacks.TensorBoard(log_dir=model_dir, histogram_freq=0, batch_size=10,
-                                        write_graph=False, write_grads=True, write_images=False)
+    csv_logger  = callbacks.CSVLogger(csv_fn, append=False, separator=',')
+    tensorboard = callbacks.TensorBoard(log_dir=model_dir, histogram_freq=0,
+                                        write_graph=True, write_images=False)
     
     train_history = model.fit(
                         generate_minibatches(dataParser,),

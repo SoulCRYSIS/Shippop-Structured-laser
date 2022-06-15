@@ -76,7 +76,6 @@ def hed():
         metrics={"output_fuse": ofuse_pixel_error},
         optimizer="adam",
     )
-    print(model.summary())
     return model
 
 

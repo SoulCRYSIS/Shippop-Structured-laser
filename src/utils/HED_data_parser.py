@@ -2,7 +2,7 @@ import os
 import numpy as np
 from PIL import Image
 
-from constant import DATA_FOLDER, INPUT_IMAGE_HEIGHT, INPUT_IMAGE_WIDTH
+from constant import DATA_FOLDER, INPUT_IMAGE_HEIGHT, INPUT_IMAGE_WIDTH, TRAIN_VALIDATOR_RATIO
 
 def read_file_list(filelist):
 
@@ -35,7 +35,7 @@ class DataParser():
 		self.all_ids = range(self.n_samples)
 		np.random.shuffle([*self.all_ids])
 
-		train_split = 0.8
+		train_split = TRAIN_VALIDATOR_RATIO
 		self.training_ids = self.all_ids[:int(train_split * len(self.training_pairs))]
 		self.validation_ids = self.all_ids[int(train_split * len(self.training_pairs)):]
 
