@@ -27,7 +27,7 @@ def predictResults():
     resultFiles = os.listdir("train_results")
     print("--- select weight data ---", flush=True)
     for index, resultFile in enumerate(resultFiles):
-        print(index, resultFile,  flush=True)
+        print(index, resultFile, flush=True)
     inputIndex = input("Which result will use for prediction? ")
     if not inputIndex.isdecimal() or int(inputIndex) >= len(resultFiles) or int(inputIndex) < 0:
         print("!!! Invalid input index !!!")
@@ -88,3 +88,8 @@ def predictResults():
         out_mask = cv2.resize(mask, (h, w), interpolation=cv2.INTER_CUBIC)
 
         cv2.imwrite("test/output/not_train_data/" + name, out_mask)
+
+
+if __name__ == "__main__":
+    predictResults()
+
